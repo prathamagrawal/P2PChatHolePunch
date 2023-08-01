@@ -1,40 +1,51 @@
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import "./style.scss";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "./context/AuthContext";
+import React, { useState } from 'react';
+import './App.css';
+import DHT from 'hyperdht'
+import b4a from 'b4a'
+
+const keyPair = DHT.keyPair()
 
 function App() {
-  const { currentUser } = useContext(AuthContext);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [showGreeting, setShowGreeting] = useState(false);
 
-  const ProtectedRoute = ({ children }) => {
-    if (!currentUser) {
-      return <Navigate to="/login" />;
-    }
+    const handleNameChange = (event) => {
+        setName(event.target.value);
+    };
 
-    return children
-  };
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value);
+    };
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/">
-          <Route
-            index
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setShowGreeting(true);
+    };
+
+    return (
+        <div className="App">
+            <h1>P2P Private Chat App</h1>
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Name:
+                    <input type="text" value={name} onChange={handleNameChange} />
+                </label>
+                <br />
+                <label>
+                    Email:
+                    <input type="email" value={email} onChange={handleEmailChange} />
+                </label>
+                <br />
+                <button type="submit">Show Public Key</button>
+            </form>
+            {showGreeting && (
+                <div>
+                    <h2>{b4a.toString(keyPair.publicKey, 'hex')}</h2>
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default App;
