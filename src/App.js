@@ -1,50 +1,32 @@
-import React, { useState } from 'react';
-import './App.css';
-import DHT from 'hyperdht'
-import b4a from 'b4a'
-
-const keyPair = DHT.keyPair()
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+// import './App.css';
+import Login from './Login'; // Import the Login component
+import Register from './Register'; // Import the Register component
 
 function App() {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [showGreeting, setShowGreeting] = useState(false);
-
-    const handleNameChange = (event) => {
-        setName(event.target.value);
-    };
-
-    const handleEmailChange = (event) => {
-        setEmail(event.target.value);
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        setShowGreeting(true);
-    };
-
     return (
-        <div className="App">
-            <h1>P2P Private Chat App</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Name:
-                    <input type="text" value={name} onChange={handleNameChange} />
-                </label>
-                <br />
-                <label>
-                    Email:
-                    <input type="email" value={email} onChange={handleEmailChange} />
-                </label>
-                <br />
-                <button type="submit">Show Public Key</button>
-            </form>
-            {showGreeting && (
-                <div>
-                    <h2>{b4a.toString(keyPair.publicKey, 'hex')}</h2>
-                </div>
-            )}
-        </div>
+        <Router>
+            <div className="App">
+                <h1>Welcome to My App</h1>
+                <Link to="/login">
+                    <button>Login</button>
+                </Link>
+                <Link to="/register">
+                    <button>Register</button>
+                </Link>
+
+                <Switch>
+                    <Route path="/login">
+                        <Login />
+                    </Route>
+                    <Route path="/register">
+                        <Register />
+                    </Route>
+                </Switch>
+            </div>
+        </Router>
     );
 }
 
