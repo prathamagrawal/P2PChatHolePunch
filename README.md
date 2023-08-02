@@ -1,4 +1,4 @@
-# PeerWave
+<h1 align="center">Peerwave 💬</h1>
 <hr>
 "PeerWave" is an innovative and versatile peer-to-peer chat platform that combines the power of React, Firebase, and Hyperswarm to offer a seamless, secure, and decentralized messaging experience.
 
