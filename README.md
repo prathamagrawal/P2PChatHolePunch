@@ -34,7 +34,7 @@ Before you begin, ensure you have the following installed:
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/prathamagrawal/peerwave.git
+   git clone https://github.com/prathamagrawal/PeerWave.git
    cd peerwave
    ```
 
