@@ -5,6 +5,10 @@ import { auth, db, storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
+import { GifComponent } from "../components/GifComponent";
+import GifPlayer from "react-gif-player";
+import gifChat from "../img/chats.gif";
+
 
 const Register = () => {
   const [err, setErr] = useState(false);
@@ -62,7 +66,8 @@ const Register = () => {
   return (
     <div className="formContainer">
       <div className="formWrapper">
-        <span className="logo">Lama Chat</span>
+      <GifPlayer gif={gifChat} still={gifChat} autoplay className="formGiF"/>
+        <span className="logo">PeerWave</span>
         <span className="title">Register</span>
         <form onSubmit={handleSubmit}>
           <input required type="text" placeholder="display name" />
